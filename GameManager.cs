@@ -6,23 +6,38 @@ public class GameManager : MonoBehaviour
 {
     public GameObject CartaPrefab;
     List<GameObject> Cartas = new List<GameObject>();
+    public List<Sprite> imagenesCartas = new List<Sprite>();
+    int[] repetidos = { 0, 0, 0, 0, 0 };
     // Start is called before the first frame update
     void Start()
     {
 
         for (int i = 1; i < 11; i++)
         {
+            GameObject nueva_carta;
             if (i < 6)
             {
-                GameObject nueva_carta = Instantiate(CartaPrefab, new Vector3(-9, 2, 0) + Vector3.right * 3 * i, Quaternion.identity);
-                nueva_carta.name = "Card" + i;
-                Cartas.Add(nueva_carta);
+                nueva_carta = Instantiate(CartaPrefab, new Vector3(-9, 2, 0) + Vector3.right * 3 * i, Quaternion.identity);
+
             }
             else
             {
-                GameObject nueva_carta = Instantiate(CartaPrefab, new Vector3(-9, -2, 0) + Vector3.right*3 * (i - 5), Quaternion.identity);
-                Cartas.Add(nueva_carta);
-                nueva_carta.name = "Card" + i;
+                nueva_carta = Instantiate(CartaPrefab, new Vector3(-9, -2, 0) + Vector3.right*3 * (i - 5), Quaternion.identity);
+
+            }
+            nueva_carta.name = "Card" + i;
+            Cartas.Add(nueva_carta);
+            int posicion = 0;
+            bool listo = false;
+            while (listo == false)
+            {
+            posicion = Random.Range(0, 5);
+                if (repetidos[posicion] < 2)
+                {
+                    repetidos[posicion]++;
+                    listo = true;
+                }
+            nueva_carta.GetComponent<CardScript>().front = imagenesCartas[posicion];
             }
         }
     }
