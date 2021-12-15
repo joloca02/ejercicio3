@@ -9,9 +9,12 @@ public class CardScript : MonoBehaviour
     public Sprite front;
     public Sprite back;
     SpriteRenderer spriteRenderer;
+    GameObject gameManager;
+    public int puntuacion = 0;
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        gameManager = GameObject.FindGameObjectWithTag("GameController");
     }
     // Start is called before the first frame update
     void Start()
@@ -25,7 +28,8 @@ public class CardScript : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        Debug.Log("carta " + name + " pulsada");
+
+        gameManager.GetComponent<GameManager>().clickOnCard(name, puntuacion);
         if (volteada == false)
         {
             spriteRenderer.sprite = front;
@@ -38,4 +42,5 @@ public class CardScript : MonoBehaviour
             volteada = false;
         }
     }
+  
 }

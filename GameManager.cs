@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     List<GameObject> Cartas = new List<GameObject>();
     public List<Sprite> imagenesCartas = new List<Sprite>();
     int[] repetidos = { 0, 0, 0, 0, 0 };
+    int[] puntuacion = { 7, 1, 0, 9, 6 };
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
                     listo = true;
                 }
             nueva_carta.GetComponent<CardScript>().front = imagenesCartas[posicion];
+            nueva_carta.GetComponent<CardScript>().puntuacion = puntuacion[posicion];
             }
         }
     }
@@ -45,5 +47,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
+    }
+    public void clickOnCard(string name, int puntuacion)
+    {
+        Debug.Log("click en "+name+ " con un valor de "+puntuacion);
     }
 }
