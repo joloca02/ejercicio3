@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public List<Sprite> imagenesCartas = new List<Sprite>();
     int[] repetidos = { 0, 0, 0, 0, 0 };
     int[] puntuacion = { 7, 1, 0, 9, 6 };
+    int estado = 1;
+    int cardUp;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +52,23 @@ public class GameManager : MonoBehaviour
     }
     public void clickOnCard(string name, int puntuacion)
     {
+        if (estado == 1)
+        {
+            cardUp = puntuacion;
+            estado = 2;
+        }
+        else
+        {
+            if(puntuacion == cardUp)
+            {
+                Debug.Log("Las cartas volteadas son pareja");
+            }
+            else
+            {
+                Debug.Log("Las cartas volteadas no son pareja");
+            }
+            estado = 1;
+        }
         Debug.Log("click en "+name+ " con un valor de "+puntuacion);
     }
 }
