@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     int[] repetidos = { 0, 0, 0, 0, 0 };
     int[] puntuacion = { 7, 1, 0, 9, 6 };
     int estado = 1;
-    int cardUp;
+    int cardUp, indiceVolteada;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
                 }
             nueva_carta.GetComponent<CardScript>().front = imagenesCartas[posicion];
             nueva_carta.GetComponent<CardScript>().puntuacion = puntuacion[posicion];
+            nueva_carta.GetComponent<CardScript>().indice = i-1;
+
             }
         }
     }
@@ -50,11 +52,12 @@ public class GameManager : MonoBehaviour
     {
 
     }
-    public void clickOnCard(string name, int puntuacion)
+    public void clickOnCard(int puntuacion, int indice)
     {
         if (estado == 1)
         {
             cardUp = puntuacion;
+            indiceVolteada = indice;
             estado = 2;
         }
         else
@@ -62,13 +65,17 @@ public class GameManager : MonoBehaviour
             if(puntuacion == cardUp)
             {
                 Debug.Log("Las cartas volteadas son pareja");
+                Cartas[indice].SetActive(false);
+                Cartas[indiceVolteada].SetActive(false);
             }
             else
             {
                 Debug.Log("Las cartas volteadas no son pareja");
+                Cartas[indice].GetComponent<CardScript>().Vuelta();
+                Cartas[indiceVolteada].GetComponent<CardScript>().Vuelta();
             }
             estado = 1;
         }
-        Debug.Log("click en "+name+ " con un valor de "+puntuacion);
+        //Debug.Log("click en "+name+ " con un valor de "+puntuacion);
     }
 }

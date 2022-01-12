@@ -10,7 +10,8 @@ public class CardScript : MonoBehaviour
     public Sprite back;
     SpriteRenderer spriteRenderer;
     GameObject gameManager;
-    public int puntuacion = 0;
+    public int puntuacion;
+    public int indice;
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -26,10 +27,8 @@ public class CardScript : MonoBehaviour
     {
         
     }
-    private void OnMouseDown()
+    public void Vuelta()
     {
-
-        gameManager.GetComponent<GameManager>().clickOnCard(name, puntuacion);
         if (volteada == false)
         {
             spriteRenderer.sprite = front;
@@ -41,6 +40,12 @@ public class CardScript : MonoBehaviour
             spriteRenderer.sprite = back;
             volteada = false;
         }
+    }
+    private void OnMouseDown()
+    {
+
+        gameManager.GetComponent<GameManager>().clickOnCard(puntuacion, indice);
+        Vuelta();
     }
   
 }
