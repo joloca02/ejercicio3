@@ -71,11 +71,17 @@ public class GameManager : MonoBehaviour
             else
             {
                 Debug.Log("Las cartas volteadas no son pareja");
-                Cartas[indice].GetComponent<CardScript>().Vuelta();
-                Cartas[indiceVolteada].GetComponent<CardScript>().Vuelta();
+                StartCoroutine(Wait(indice, indiceVolteada));
+
             }
             estado = 1;
         }
         //Debug.Log("click en "+name+ " con un valor de "+puntuacion);
+    }
+    IEnumerator Wait(int indice, int indiceVolteada)
+    {
+        yield return new WaitForSeconds(2);
+        Cartas[indice].GetComponent<CardScript>().Vuelta();
+        Cartas[indiceVolteada].GetComponent<CardScript>().Vuelta();
     }
 }
