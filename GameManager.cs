@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject CartaPrefab;
     List<GameObject> Cartas = new List<GameObject>();
     public List<Sprite> imagenesCartas = new List<Sprite>();
+    public Text texto;
     int[] repetidos = { 0, 0, 0, 0, 0 };
     int[] puntuacion = { 7, 1, 0, 9, 6 };
     int estado = 1;
     int cardUp, indiceVolteada;
+    int parejas = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +50,7 @@ public class GameManager : MonoBehaviour
 
             }
         }
+        texto.text = "Parejas: " + parejas;
     }
     // Update is called once per frame
     void Update()
@@ -67,6 +72,8 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Las cartas volteadas son pareja");
                 Cartas[indice].SetActive(false);
                 Cartas[indiceVolteada].SetActive(false);
+                parejas++;
+                texto.text = "Parejas: " + parejas;
             }
             else
             {
